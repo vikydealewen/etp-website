@@ -1,12 +1,15 @@
 <?php
 
-$secret = '6LfV0UgpAAAAAG3j0VbFFo_dpz_eMV-Rcu9hCRH4';
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src *; frame-src https://www.google.com/recaptcha/;");
+
+$secret = '6LdTErIrAAAAAJKUnBjneR7-7umr2CdWbHAgJDTT';
 //$secret = '6Ld71EgpAAAAAPc3savQnWNcHJuNJ6SqSKDTm8X1'; основной сайт
 //$to = "proekt@etppro.ru";//Почтовый ящик на который будет отправлено сообщение
-$to = "evgeniy.smirnov@list.ru";//Почтовый ящик на который будет отправлено сообщение
+$to = "zhukova.vika14@google.com";//Почтовый ящик на который будет отправлено сообщение
 $subject = "Тема сообщения";//Тема сообщения
 $message = "Message, сообщение!";//Сообщение, письмо
 $headers = "Content-type: text/plain; charset=utf-8 \r\n";
+$error = true;
 //Шапка сообщения, содержит определение типа письма, от кого, и кому отправить ответ на письмо
 
 if (!empty($_POST['g-recaptcha-response'])) {
@@ -19,7 +22,7 @@ if (!empty($_POST['g-recaptcha-response'])) {
 
     $out = json_decode($out);
     if ($out->success == true) {
-        $error = false;
+      $error = false;
     }
 }
 
