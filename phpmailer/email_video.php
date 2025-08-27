@@ -4,7 +4,6 @@ $secret = '6LfV0UgpAAAAAG3j0VbFFo_dpz_eMV-Rcu9hCRH4';
 $to = "proekt@etppro.ru";//Почтовый ящик на который будет отправлено сообщение
 $subject = "Тема сообщения";//Тема сообщения
 $message = "Message, сообщение!";//Сообщение, письмо
-$headers = "Content-type: text/plain; charset=utf-8 \r\n";
 //Шапка сообщения, содержит определение типа письма, от кого, и кому отправить ответ на письмо
 
 if (!empty($_POST['g-recaptcha-response'])) {
@@ -33,8 +32,8 @@ if ($error) {
             $name = trim(strip_tags($_POST['name']));
         }
 
-        if (isset($_POST['phone']) && $_POST['phone'] != "") {
-            $number = trim(strip_tags($_POST['phone']));
+        if (isset($_POST['tel']) && $_POST['tel'] != "") {
+            $number = trim(strip_tags($_POST['tel']));
         }
 
         if (isset($_POST['mail']) && $_POST['mail'] != "") {
@@ -57,6 +56,11 @@ if ($error) {
         $message .= "<\n>";
         $message .= "Подробнее: " . $question;
         // Окончание формирования тела письма
+
+        // Заголовки письма
+        $headers  = "Content-type: text/plain; charset=utf-8\r\n";
+        $headers .= "From: Сайт ETP <no-reply@etp-pro.ru>\r\n";
+        $headers .= "Reply-To: $mail\r\n";
 
         // Посылаем письмо
         $send = mail($to, $subject, $message, $headers);
